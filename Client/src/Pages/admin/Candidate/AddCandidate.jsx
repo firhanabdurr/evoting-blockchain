@@ -54,7 +54,7 @@ export default function AddCandidate() {
           <Paper elevation={3}>
             <Box px={3} py={2}>
               <Typography variant="h6" align="center" margin="dense">
-                Add Candidate
+                Tambahkan Kandidat
               </Typography>
               <Grid container pt={3} spacing={3}>
                 <Grid item xs={12} sm={12}>
@@ -67,24 +67,24 @@ export default function AddCandidate() {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <InputField
-                    label="First Name"
+                    label="Nama Depan"
                     name="fname"
                     fullWidth={true}
                   />
                   <ErrorMessage />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <InputField label="Last Name" name="lname" fullWidth={true} />
+                  <InputField label="Nama Belakang" name="lname" fullWidth={true} />
                   <ErrorMessage />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <DatePicker name="dob" title="Birth Date" maxDate={maxDate} />
+                  <DatePicker name="dob" title="Tanggal Lahir" maxDate={maxDate} />
                   <ErrorMessage />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
                     type="number"
-                    label="Politices Join From (Year)"
+                    label="Tahun Masuk Politik"
                     fullWidth
                     readOnly
                     inputProps={{ min: 1900, max: 2099 }}
@@ -98,7 +98,7 @@ export default function AddCandidate() {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <InputField
-                    label="Qualification"
+                    label="Pendidikan"
                     name="qualification"
                     fullWidth={true}
                   />
@@ -106,7 +106,7 @@ export default function AddCandidate() {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <InputField
-                    label="Location"
+                    label="Alamat"
                     name="location"
                     fullWidth={true}
                   />
@@ -114,7 +114,7 @@ export default function AddCandidate() {
                 </Grid>
                 <Grid item xs={12} sm={12}>
                   <TextField
-                    label="Description"
+                    label="Deskripsi"
                     name="description"
                     multiline
                     rows={5}
@@ -125,7 +125,7 @@ export default function AddCandidate() {
               </Grid>
               <Box mt={3}>
                 <Button type="submit" variant="contained" color="primary">
-                  Add Candidate
+                  Tambahkan
                 </Button>
               </Box>
             </Box>

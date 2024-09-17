@@ -15,37 +15,37 @@ export const WebsiteDetails = {
 
 export const SidebarData = [
   {
-    title: "Dashboard",
+    title: "Beranda",
     icon: <AiOutlineDashboard />,
     link: "/admin/dashboard",
     id: "",
   },
   {
-    title: "User",
+    title: "Pemilih",
     icon: <PeopleIcon />,
     link: "/admin/user",
     id: "",
   },
   {
-    title: "Candidate",
+    title: "Kandidat",
     icon: <AiOutlineUser />,
     link: "/admin/candidate",
     id: "",
   },
   {
-    title: "Election",
+    title: "Pemilihan",
     icon: <HowToVoteIcon />,
     link: "/admin/election",
     id: "",
   },
   {
-    title: "Phase",
+    title: "Fase Pemilihan",
     icon: <LoopIcon />,
     link: "/admin/phase",
     id: "",
   },
   {
-    title: "Result",
+    title: "Hasil",
     icon: <GradingIcon />,
     link: "/admin/result",
     id: "",

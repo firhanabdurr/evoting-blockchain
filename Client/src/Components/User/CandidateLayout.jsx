@@ -116,9 +116,9 @@ const CandidateLayout = (props) => {
             {data !== null && (
               <>
                 <Typography>
-                  Name : {data.firstName + " " + data.lastName}
+                  Nama : {data.firstName + " " + data.lastName}
                 </Typography>
-                <Typography>Location: {data.location}</Typography>
+                <Typography>Alamat: {data.location}</Typography>
               </>
             )}
           </Typography>

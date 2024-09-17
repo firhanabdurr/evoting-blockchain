@@ -65,12 +65,12 @@ const AddUser = () => {
           <Paper elevation={3}>
             <Box px={3} py={2}>
               <Typography variant="h6" align="center" margin="dense">
-                Add User
+                Tambahkan Pemilih
               </Typography>
               <Grid container pt={3} spacing={3}>
                 <Grid item xs={12} sm={12}>
                   <InputField
-                    label="username"
+                    label="Username"
                     name="username"
                     fullWidth={true}
                   />
@@ -78,21 +78,21 @@ const AddUser = () => {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <InputField
-                    label="First Name"
+                    label="Nama Depan"
                     name="fname"
                     fullWidth={true}
                   />
                   <ErrorMessage />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <InputField label="Last Name" name="lname" fullWidth={true} />
+                  <InputField label="Nama Belakang" name="lname" fullWidth={true} />
                   <ErrorMessage />
                 </Grid>
                 <Grid item xs={12} sm={12}>
                   <InputField label="E-mail" name="email" fullWidth={true} />
                 </Grid>
                 <Grid item xs={12} sm={12}>
-                  <InputField label="Mobile" name="mobile" fullWidth={true} />
+                  <InputField label="No. Telepon" name="mobile" fullWidth={true} />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <InputField
@@ -124,7 +124,7 @@ const AddUser = () => {
               </Grid>
               <Box mt={3}>
                 <Button type="submit" variant="contained" color="primary">
-                  Add User
+                  Tambahkan
                 </Button>
               </Box>
             </Box>

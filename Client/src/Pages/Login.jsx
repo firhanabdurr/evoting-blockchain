@@ -79,7 +79,7 @@ const Login = () => {
           <Paper elevation={3}>
             <Box px={3} py={2}>
               <Typography variant="h6" align="center" margin="dense">
-                Masukan Data Diri
+                Login untuk Melanjutkan
               </Typography>
               <Grid container pt={3} spacing={3}>
                 <Grid item xs={12} sm={12}>

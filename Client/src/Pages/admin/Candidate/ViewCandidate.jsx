@@ -93,7 +93,7 @@ const ViewCandidate = () => {
 
   return (
     <div className="admin__content">
-      <ContentHeader title="Add Candidate" link="/admin/candidate/add" />
+      <ContentHeader title="Tambahkan" link="/admin/candidate/add" />
       <div className="content" style={{ paddingBottom: "20px" }}>
         <Card variant="outlined">
           <BasicTable

@@ -13,12 +13,12 @@ const ContentHeader = (props) => {
         <div className="content__header__path">
           <Breadcrumbs maxItems={4} aria-label="breadcrumb">
             <Link underline="hover" color="inherit" to="/admin/dashboard">
-              Home
+              Beranda
             </Link>
             {data.map((item, index) => {
               return (
                 <Link underline="hover" key={index} color="inherit" to="/">
-                  {item}
+                  {/* {item} */}
                 </Link>
               );
             })}

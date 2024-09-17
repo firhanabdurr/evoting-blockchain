@@ -57,7 +57,7 @@ export default function InputTags(props) {
   return (
     <div>
       <FormControl sx={{ width: 300 }}>
-        <InputLabel id="demo-multiple-chip-label">Select Candidates</InputLabel>
+        <InputLabel id="demo-multiple-chip-label">Pilih Kandidat</InputLabel>
         <Select
           readOnly={props.readOnly}
           labelId="demo-multiple-chip-label"
@@ -68,7 +68,7 @@ export default function InputTags(props) {
           input={
             <OutlinedInput
               id="select-multiple-chip"
-              label="Select Candidates"
+              label="Pilih Kandidat"
             />
           }
           renderValue={(selected) => (

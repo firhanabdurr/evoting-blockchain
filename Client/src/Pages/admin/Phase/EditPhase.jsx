@@ -62,12 +62,12 @@ const EditPhase = () => {
             <Paper elevation={3}>
               <Box px={3} py={2}>
                 <Typography variant="h6" align="center" margin="dense">
-                  Edit Phase
+                  Edit Status
                 </Typography>
                 <Grid container pt={3} spacing={3}>
                   <Grid item xs={12} sm={12}>
                     <InputField
-                      label="name"
+                      label="Judul"
                       name="name"
                       fullWidth={true}
                       value={data.name}
@@ -92,7 +92,7 @@ const EditPhase = () => {
                           required
                           {...params}
                           name="currentPhase"
-                          label="Phase"
+                          label="Status"
                         />
                       )}
                     />
@@ -100,7 +100,7 @@ const EditPhase = () => {
                 </Grid>
                 <Box mt={3}>
                   <Button type="submit" variant="contained" color="primary">
-                    Update Phase
+                    Update Status
                   </Button>
                 </Box>
               </Box>

@@ -37,11 +37,11 @@ const AddElection = () => {
             <Paper elevation={3}>
               <Box px={3} py={2}>
                 <Typography variant="h6" align="center" margin="dense">
-                  Elections
+                  Pemilihan
                 </Typography>
                 <Grid container pt={3} spacing={3}>
                   <Grid item xs={12} sm={6}>
-                    <InputField label="name" name="name" fullWidth={true} />
+                    <InputField label="Judul" name="name" fullWidth={true} />
                   </Grid>
                   <Grid item xs={12} sm={6}></Grid>
                   <Grid item xs={12} sm={6}>
@@ -54,7 +54,7 @@ const AddElection = () => {
                 </Grid>
                 <Box mt={3}>
                   <Button type="submit" variant="contained" color="primary">
-                    Save
+                    Simpan
                   </Button>
                 </Box>
               </Box>

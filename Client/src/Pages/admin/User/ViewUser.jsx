@@ -89,7 +89,7 @@ const ViewUser = () => {
 
   return (
     <div className="admin__content">
-      <ContentHeader title="Add User" link="/admin/user/add" />
+      <ContentHeader title="Tambahkan" link="/admin/user/add" />
       <div className="content" style={{ paddingBottom: "20px" }}>
         <Card variant="outlined">
           <BasicTable columns={columns} rows={data} checkboxSelection={true} />
