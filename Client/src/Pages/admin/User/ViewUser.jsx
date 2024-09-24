@@ -17,10 +17,10 @@ const ViewUser = () => {
 
   const columns = [
     { field: "_id", headerName: "ID", width: 220, hide: true },
-    { field: "username", headerName: "Username", width: 150 },
+    { field: "username", headerName: "NIK", width: 150 },
     { field: "email", headerName: "Email", width: 300 },
-    { field: "location", headerName: "Location", width: 150 },
-    { field: "mobile", headerName: "Mobile", width: 200 },
+    { field: "location", headerName: "Alamat", width: 150 },
+    { field: "mobile", headerName: "No. Telepon", width: 200 },
     {
       field: "time",
       headerName: "Updated At",

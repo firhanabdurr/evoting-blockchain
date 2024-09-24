@@ -23,7 +23,7 @@ const ViewElectionResult = () => {
           <Grid container pt={3} spacing={2}>
             <Grid container justifyContent="center" alignItems="center">
               <Typography variant="h3" style={style.pageTitle}>
-                Result of {data.name}
+                Hasil {data.name}
               </Typography>
             </Grid>
             {data.candidates != null &&

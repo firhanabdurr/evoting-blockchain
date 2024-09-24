@@ -54,10 +54,10 @@ const Candidate = (props) => {
             {data !== null && (
               <>
                 <Typography>
-                  Name : {data.firstName + " " + data.lastName}
+                  Nama : {data.firstName + " " + data.lastName}
                 </Typography>
                 <Typography>Total Vote : {props.vote}</Typography>
-                <Typography>Location: {data.location}</Typography>
+                <Typography>Alamat: {data.location}</Typography>
               </>
             )}
           </Typography>

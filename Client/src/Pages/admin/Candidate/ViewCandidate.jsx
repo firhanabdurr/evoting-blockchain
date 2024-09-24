@@ -34,26 +34,26 @@ const ViewCandidate = () => {
 
   const columns = [
     { field: "_id", headerName: "ID", width: 220, hide: true },
-    { field: "username", headerName: "Username", width: 150 },
+    { field: "username", headerName: "NIK", width: 150 },
     {
       field: "fname",
-      headerName: "Full Name",
+      headerName: "Nama Lengkap",
       valueGetter: (data) => {
         return data.row.firstName + " " + data.row.lastName;
       },
       width: 300,
     },
-    { field: "location", headerName: "Location", width: 200 },
+    { field: "location", headerName: "Alamat", width: 200 },
     {
       field: "dob",
-      headerName: "Date of Birth",
+      headerName: "Tanggal Lahir",
       valueGetter: (params) => dateConverter(params.row.dob),
       width: 120,
-      hide: true,
+      hide: false,
     },
     {
       field: "qualification",
-      headerName: "Qualification",
+      headerName: "Pendidikan",
       width: 200,
     },
     {

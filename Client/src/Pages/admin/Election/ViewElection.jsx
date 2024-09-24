@@ -15,8 +15,8 @@ const ViewElection = () => {
 
   const columns = [
     { field: "_id", headerName: "Id", width: 220, hide: true },
-    { field: "name", headerName: "Name", width: 220 },
-    { field: "candidates", headerName: "Candidates", width: 220 },
+    { field: "name", headerName: "Judul", width: 220 },
+    { field: "candidates", headerName: "Kandidat", width: 220 },
     {
       field: "delete",
       headerName: "Delete",
@@ -55,7 +55,7 @@ const ViewElection = () => {
   return (
     <>
       <div className="admin__content">
-        <ContentHeader title="Add Election" link="/admin/election/add" />
+        <ContentHeader title="Tambahkan" link="/admin/election/add" />
         <div className="content" style={{ paddingBottom: "20px" }}>
           <Card variant="outlined">
             <BasicTable columns={columns} rows={data} />

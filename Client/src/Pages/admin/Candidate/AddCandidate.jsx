@@ -59,7 +59,7 @@ export default function AddCandidate() {
               <Grid container pt={3} spacing={3}>
                 <Grid item xs={12} sm={12}>
                   <InputField
-                    label="username"
+                    label="NIK"
                     name="username"
                     fullWidth={true}
                   />
