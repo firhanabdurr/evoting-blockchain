@@ -3,7 +3,7 @@ import os
 import cv2
 import numpy as np
 
-path = os.getcwd()+"/Faces"                   #Add url "D:/study/sem-7/03) 4IT31/Lab/admin-project/server/Faces"
+path = os.getcwd()+"/Faces"                   #Add url "D:/study/sem-8/final"
 
 classNames = [os.path.splitext(file)[0] for file in os.listdir(path)]
 

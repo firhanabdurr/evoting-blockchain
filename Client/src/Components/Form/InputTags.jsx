@@ -23,7 +23,7 @@ export default function InputTags(props) {
         let cand = users.data;
         setData(cand);
         let k = cand.filter((tmp) =>
-          props.candidates.includes(tmp.firstName) ? tmp : null
+          props.candidates.includes(tmp.username) ? tmp : null
         );
         setValue(k);
       } catch (e) {
@@ -83,10 +83,10 @@ export default function InputTags(props) {
           {data.map((name) => (
             <MenuItem
               key={name._id}
-              value={name.firstName}
-              style={getStyles(name.firstName, personName, theme)}
+              value={name.username}
+              style={getStyles(name.username, personName, theme)}
             >
-              {name.firstName}
+              {name.username}
             </MenuItem>
           ))}
         </Select>
