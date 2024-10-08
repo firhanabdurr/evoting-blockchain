@@ -41,6 +41,7 @@ const CandidateLayout = (props) => {
         setLoading(false);
         return;
       }
+      
       const tmp = {
         candidate_id: data._id,
         candidate_username: props.username,
