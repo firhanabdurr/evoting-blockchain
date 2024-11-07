@@ -1,10 +1,9 @@
-import { Button, Typography, Box, Grid, Paper } from "@mui/material";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import { Button, Typography, Box, Grid, Paper, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import InputField from "../Components/Form/InputField";
 import { ErrorMessage } from "../Components/Form/ErrorMessage";
 import { TransactionContext } from "../context/TransactionContext";
-import { useEffect } from "react";
 import { serverLink, isFaceRecognitionEnable } from "../Data/Variables";
 import { ObjectGroupBy } from "../Data/Methods";
 import axios from "axios";
@@ -12,9 +11,10 @@ import axios from "axios";
 const Login = () => {
   const location = useLocation();
   const data = location.state.info;
-  const { connectWallet, sendTransaction, getAllTransactions } =
-    useContext(TransactionContext);
+  const { connectWallet, sendTransaction, getAllTransactions } = useContext(TransactionContext);
   const [election, setElection] = useState({});
+  const [confirmDialogOpen, setConfirmDialogOpen] = useState(false); // State for confirmation dialog
+  const [userData, setUserData] = useState({});
 
   useEffect(() => {
     connectWallet();
@@ -33,21 +33,21 @@ const Login = () => {
     let transactions = await getAllTransactions();
     var electionGroup = ObjectGroupBy(transactions, "election_id");
     var candidate = ObjectGroupBy(electionGroup[election._id], "user_id");
-    if (candidate[user_id].length > 0) {
+    if (candidate[user_id]?.length > 0) {
       alert("You already Voted");
       window.location.href = "/";
+      return true;
     }
+    return false;
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const password = e.target.password.value;
-    const username = e.target.username.value;
+  const handleConfirmVote = async () => {
+    const password = userData.password;
+    const username = userData.username;
     const tmp = {
       username,
       password,
     };
-    // axios.post(serverLink + "votingEmail", { id: data.user_id });
 
     let check = await axios.post(serverLink + "login", tmp);
     if (check.status === 202) {
@@ -55,7 +55,9 @@ const Login = () => {
     } else if (check.status === 201) {
       await connectWallet();
       let trans = false;
-      checkDuplicateVote(check.data._id);
+      const alreadyVoted = await checkDuplicateVote(check.data._id);
+      if (alreadyVoted) return;
+
       trans = await sendTransaction(
         data.election_id,
         data.candidate_id,
@@ -65,11 +67,21 @@ const Login = () => {
       if (trans.valid) {
         window.location.href = "/";
         axios.post(serverLink + "votingEmail", { id: check.data._id });
-        alert("Thank You For the Vote");
+        alert("Terimakasih telah memilih");
       } else {
         alert(trans.mess);
       }
     }
+    setConfirmDialogOpen(false);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const password = e.target.password.value;
+    const username = e.target.username.value;
+
+    setUserData({ username, password }); // Set user data for confirmation
+    setConfirmDialogOpen(true); // Open confirmation dialog
   };
 
   return (
@@ -136,6 +148,24 @@ const Login = () => {
           </Paper>
         </form>
       </div>
+
+      {/* Confirmation Dialog */}
+      <Dialog open={confirmDialogOpen} onClose={() => setConfirmDialogOpen(false)}>
+        <DialogTitle>Konfirmasi Pilihan Anda</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Apakah Anda yakin ingin memilih kandidat: <strong>{data.candidate_username}</strong>?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setConfirmDialogOpen(false)} color="secondary">
+            Batal
+          </Button>
+          <Button onClick={handleConfirmVote} color="primary">
+            Konfirmasi
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };

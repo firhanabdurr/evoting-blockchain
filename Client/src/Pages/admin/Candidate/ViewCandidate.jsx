@@ -34,7 +34,7 @@ const ViewCandidate = () => {
 
   const columns = [
     { field: "_id", headerName: "ID", width: 220, hide: true },
-    { field: "username", headerName: "NIK", width: 150 },
+    { field: "username", headerName: "Username", width: 150 },
     {
       field: "fname",
       headerName: "Nama Lengkap",
