@@ -8,12 +8,14 @@ import Button from "@mui/material/Button";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { serverLink } from "../../../Data/Variables";
-import { Alert, Snackbar } from "@mui/material";
+import { Alert, Snackbar, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from "@mui/material";
 import { Link } from "react-router-dom";
 
 const ViewUser = () => {
   const [data, setData] = useState([]);
-  const [open, setOpen] = useState(false);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   const columns = [
     { field: "_id", headerName: "ID", width: 220, hide: true },
@@ -57,13 +59,12 @@ const ViewUser = () => {
       headerName: "Delete",
       width: 80,
       renderCell: (params) => {
-        const deleteBtn = () => {
-          const link = serverLink + "user/delete/" + params.row._id;
-          axios.get(link);
-          setOpen(true);
+        const handleDialogOpen = () => {
+          setSelectedUser(params.row);
+          setDialogOpen(true);
         };
         return (
-          <Button onClick={deleteBtn}>
+          <Button onClick={handleDialogOpen}>
             <DeleteIcon sx={{ color: "error.main" }} />
           </Button>
         );
@@ -71,11 +72,29 @@ const ViewUser = () => {
     },
   ];
 
-  const handleClose = (event, reason) => {
+  const handleCloseSnackbar = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
-    setOpen(false);
+    setOpenSnackbar(false);
+  };
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
+
+  const confirmDelete = async () => {
+    if (!selectedUser) return;
+
+    try {
+      const link = `${serverLink}user/delete/${selectedUser._id}`;
+      await axios.get(link);
+      setOpenSnackbar(true); // Tampilkan notifikasi
+      setDialogOpen(false); // Tutup dialog
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      alert("Terjadi kesalahan saat menghapus pengguna.");
+    }
   };
 
   useEffect(() => {
@@ -85,7 +104,7 @@ const ViewUser = () => {
       setData(users);
     }
     getData();
-  }, [open]);
+  }, [openSnackbar]);
 
   return (
     <div className="admin__content">
@@ -95,11 +114,26 @@ const ViewUser = () => {
           <BasicTable columns={columns} rows={data} checkboxSelection={true} />
         </Card>
       </div>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
-          User Deleted
+      <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar}>
+        <Alert onClose={handleCloseSnackbar} severity="error" sx={{ width: "100%" }}>
+          User berhasil dihapus
         </Alert>
       </Snackbar>
+      <Dialog open={dialogOpen} onClose={handleDialogClose}>
+        <DialogTitle>Konfirmasi Penghapusan</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Apakah Anda yakin ingin menghapus user dengan nama:{" "}
+            {selectedUser?.username} ({selectedUser?.email})?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDialogClose}>Batal</Button>
+          <Button onClick={confirmDelete} color="error">
+            Hapus
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };

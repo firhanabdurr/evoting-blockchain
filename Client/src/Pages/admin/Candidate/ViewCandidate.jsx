@@ -6,12 +6,13 @@ import axios from "axios";
 import ContentHeader from "../../../Components/ContentHeader";
 import { serverLink } from "../../../Data/Variables";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Button } from "@mui/material";
-import { Alert, Snackbar } from "@mui/material";
+import { Button, Alert, Snackbar, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from "@mui/material";
 
 const ViewCandidate = () => {
   const [data, setData] = useState([]);
-  const [open, setOpen] = useState(false);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [selectedCandidate, setSelectedCandidate] = useState(null);
 
   const dateConverter = (date) => {
     date = new Date(date);
@@ -20,11 +21,34 @@ const ViewCandidate = () => {
     );
   };
 
-  const handleClose = (event, reason) => {
+  const handleCloseSnackbar = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
-    setOpen(false);
+    setOpenSnackbar(false);
+  };
+
+  const handleDialogOpen = (candidate) => {
+    setSelectedCandidate(candidate);
+    setDialogOpen(true);
+  };
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
+
+  const confirmDelete = async () => {
+    if (!selectedCandidate) return;
+
+    try {
+      const link = `${serverLink}candidate/delete/${selectedCandidate._id}`;
+      await axios.get(link);
+      setOpenSnackbar(true); // Tampilkan notifikasi
+      setDialogOpen(false); // Tutup dialog
+    } catch (error) {
+      console.error("Error deleting candidate:", error);
+      alert("Terjadi kesalahan saat menghapus kandidat.");
+    }
   };
 
   const columnVisibilityModel = {
@@ -68,13 +92,8 @@ const ViewCandidate = () => {
       headerName: "Delete",
       width: 80,
       renderCell: (params) => {
-        const deleteBtn = () => {
-          const link = serverLink + "candidate/delete/" + params.row._id;
-          axios.get(link);
-          setOpen(true);
-        };
         return (
-          <Button onClick={deleteBtn}>
+          <Button onClick={() => handleDialogOpen(params.row)}>
             <DeleteIcon sx={{ color: "error.main" }} />
           </Button>
         );
@@ -89,7 +108,7 @@ const ViewCandidate = () => {
       setData(users);
     }
     getData();
-  }, [open]);
+  }, [openSnackbar]);
 
   return (
     <div className="admin__content">
@@ -104,11 +123,26 @@ const ViewCandidate = () => {
           />
         </Card>
       </div>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
-          Candidate Deleted
+      <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar}>
+        <Alert onClose={handleCloseSnackbar} severity="error" sx={{ width: "100%" }}>
+          Kandidat berhasil dihapus
         </Alert>
       </Snackbar>
+      <Dialog open={dialogOpen} onClose={handleDialogClose}>
+        <DialogTitle>Konfirmasi Penghapusan</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Apakah Anda yakin ingin menghapus kandidat dengan nama:{" "}
+            {selectedCandidate?.firstName} {selectedCandidate?.lastName}?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDialogClose}>Batal</Button>
+          <Button onClick={confirmDelete} color="error">
+            Hapus
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };

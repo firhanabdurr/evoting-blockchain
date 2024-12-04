@@ -24,7 +24,7 @@ export default function CardLayout(props) {
           {props.title}
         </Typography>
         <Typography variant="body2" color="text.secondary" component="div">
-          <strong>Candidates :</strong>
+          <strong>Kandidat :</strong>
           {props.candidates.slice(0, 2).map((item, index) => {
             return (
               <Typography key={index}>
