@@ -7,11 +7,13 @@ import axios from "axios";
 import { serverLink } from "../../../Data/Variables";
 import { Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Alert, Snackbar } from "@mui/material";
+import { Alert, Snackbar, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 
 const ViewElection = () => {
   const [data, setData] = useState([]);
   const [open, setOpen] = useState(false);
+  const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
 
   const columns = [
     { field: "_id", headerName: "Id", width: 220, hide: true },
@@ -22,13 +24,12 @@ const ViewElection = () => {
       headerName: "Delete",
       width: 80,
       renderCell: (params) => {
-        const deleteBtn = () => {
-          const link = serverLink + "election/delete/" + params.row._id;
-          axios.get(link);
-          setOpen(true);
+        const handleDeleteClick = () => {
+          setSelectedId(params.row._id); // Simpan id dari row yang akan dihapus
+          setConfirmDialogOpen(true); // Buka dialog konfirmasi
         };
         return (
-          <Button onClick={deleteBtn}>
+          <Button onClick={handleDeleteClick}>
             <DeleteIcon sx={{ color: "error.main" }} />
           </Button>
         );
@@ -36,11 +37,22 @@ const ViewElection = () => {
     },
   ];
 
-  const handleClose = (event, reason) => {
+  const handleCloseSnackbar = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
     setOpen(false);
+  };
+
+  const handleConfirmDelete = async () => {
+    const link = `${serverLink}election/delete/${selectedId}`;
+    await axios.get(link);
+    setOpen(true);
+    setConfirmDialogOpen(false); // Tutup dialog konfirmasi
+  };
+
+  const handleCancelDelete = () => {
+    setConfirmDialogOpen(false); // Tutup dialog konfirmasi tanpa menghapus
   };
 
   useEffect(() => {
@@ -61,11 +73,29 @@ const ViewElection = () => {
             <BasicTable columns={columns} rows={data} />
           </Card>
         </div>
-        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-          <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleCloseSnackbar}>
+          <Alert onClose={handleCloseSnackbar} severity="error" sx={{ width: "100%" }}>
             Election Deleted
           </Alert>
         </Snackbar>
+
+        {/* Dialog Konfirmasi */}
+        <Dialog open={confirmDialogOpen} onClose={handleCancelDelete}>
+          <DialogTitle>Konfirmasi Penghapusan</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Apakah Anda yakin ingin menghapus election ini? Tindakan ini tidak dapat dibatalkan.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCancelDelete} color="secondary">
+              Batal
+            </Button>
+            <Button onClick={handleConfirmDelete} color="primary" autoFocus>
+              Hapus
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
     </>
   );
